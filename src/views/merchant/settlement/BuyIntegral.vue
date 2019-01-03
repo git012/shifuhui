@@ -30,9 +30,9 @@
                 </Col>
                 <Col span="13">
                     <div class="buttonGroup">
-                        <Button type="primary" @click="$emit('doWhat','userConsumeBonusesList')">红积分</Button>
+                        <!--<Button type="primary" @click="$emit('doWhat','userConsumeBonusesList')">红积分</Button>-->
                         <Button type="error">购物积分</Button>
-                        <Button type="primary" @click="$emit('doWhat','userReturnIntegralList')">白积分</Button>
+                        <Button type="primary" @click="$emit('doWhat','userReturnIntegralList')">福惠积分</Button>
                         <Button type="primary" @click="$emit('doWhat','turnoverList')">营业额</Button>
                       
                     </div>
@@ -121,7 +121,7 @@ export default {
             saveType: "new",
             recordKind:["----","红积分转购物积分（转入）","转会员购物积分（转出）","商家消费（转出）","其他"],
 
-                // 种类 1-消费券返还,2-转红积分账户，3-转购物积分，4-白积分释放，5-直营店消费 6-其他
+                // 种类 1-消费券返还,2-转红积分账户，3-转购物积分，4-福惠积分释放，5-直营店消费 6-其他
             recordStatus:["不限","转出","转入"],
             
             doType:"userBuyIntegralList",

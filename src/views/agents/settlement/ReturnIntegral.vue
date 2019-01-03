@@ -1,6 +1,6 @@
 <style>
 </style>
-<!-- 代理商白积分明细 -->
+<!-- 代理商福惠积分明细 -->
 <template>
     <div class="doBox">
         <Spin size="large" fix v-if="switching"></Spin>
@@ -30,9 +30,9 @@
                 </Col>
                 <Col span="14">
                     <div class="buttonGroup">
-                        <Button type="primary" @click="$emit('doWhat','userConsumeBonusesList')">红积分</Button>
+                        <!--<Button type="primary" @click="$emit('doWhat','userConsumeBonusesList')">红积分</Button>-->
                         <Button type="primary" @click="$emit('doWhat','userBuyIntegralList')">购物积分</Button>
-                        <Button type="error">白积分</Button>
+                        <Button type="error">福惠积分</Button>
                       
                     </div>
                 </Col>
@@ -61,7 +61,7 @@ export default {
 // agent_id    int     代理ID
 // amount  float   金额
 // created     date    创建时间
-// kind    int     种类 1-订单返还（转入）2-白积分转红积分万分之五（转出）
+// kind    int     种类 1-订单返还（转入）2-福惠积分转红积分万分之五（转出）
 // status  int     状态（1-转出2-转入）
 // source_id   int     来源 kind=1:消费券的订单id
 // agent_name  string  代理名称
@@ -116,8 +116,8 @@ export default {
             ],
             saveType: "new",
             recordStatus:["不限类型","转出","转入"],
-            recordKind:["----","订单返还（转入）","白积分转红积分万分之五（转出）","代理分红","其他"],
-            // 代理 白积分种类 1-订单返还（转入）2-白积分转红积分万分之五（转出）3代理分红
+            recordKind:["----","订单返还（转入）","福惠积分转红积分万分之五（转出）","代理分红","其他"],
+            // 代理 福惠积分种类 1-订单返还（转入）2-福惠积分转红积分万分之五（转出）3代理分红
             doType:"userReturnIntegralList",
             switching:false,
             tableData: [],

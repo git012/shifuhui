@@ -110,7 +110,7 @@ export default {
         return {
             paramData:{},  
             preRechargeData:{},    
-            currentView:"ConsumeBonuses",
+            currentView:"BuyIntegral",
             publicData:{
                 user_sex:["未知","男","女"],
                 is_shareholder:["非股东","股东"],
@@ -145,24 +145,24 @@ export default {
                 // },
                 {
                     title: '购物积分',
-                    align: 'right',
+                    align: 'center',
                     key: 'shopping_score'
                 },
                 {
-                    title: '白积分',
-                    align: 'right',
+                    title: '福惠积分',
+                    align: 'center',
                     key: 'white_score'
                 },
-                {
-                    title: '红分红',
-                    align: 'right',
-                    key: 'red_score'
-                },
-                {
-                    title: '待返红分红',
-                    align: 'right',
-                    key: 'unpaid_red_score'
-                },
+//              {
+//                  title: '红积分',
+//                  align: 'center',
+//                  key: 'red_score'
+//              },
+//              {
+//                  title: '待返红分红',
+//                  align: 'center',
+//                  key: 'unpaid_red_score'
+//              },
                 // {
                 //     title: '预存款账户(元)',
                 //     align: 'right',
@@ -329,7 +329,7 @@ export default {
         doName () {
             if (this.doType=="userConsumeBonusesList")  return "用户结算对账 - 红积分 - " + this.paramData.name;//红积分
             if (this.doType=="userBuyIntegralList")     return "用户结算对账 - 购物积分 - " + this.paramData.name;
-            if (this.doType=="userReturnIntegralList")  return "用户结算对账 - 白积分 - " + this.paramData.name;
+            if (this.doType=="userReturnIntegralList")  return "用户结算对账 - 福惠积分 - " + this.paramData.name;
             if (this.doType=="userAgentBonusesList")    return "用户结算对账 - 代理分红 - " + this.paramData.name;
             if (this.doType=="userRechargeList")        return "用户结算对账 - 充值 - " + this.paramData.name;
             if (this.doType=="userCashAccountList")     return "用户结算对账 - 预存款账户 - " + this.paramData.name;
@@ -353,9 +353,10 @@ export default {
             if(dotype=="userAccountList"){
 
             
-                if(this.checkPower("userConsumeBonusesList")){
-                    dotype="userConsumeBonusesList";
-                }else if(this.checkPower("userBuyIntegralList")){
+//              if(this.checkPower("userConsumeBonusesList")){
+//                  dotype="userConsumeBonusesList";
+//              }else
+                if(this.checkPower("userBuyIntegralList")){
                     dotype="userBuyIntegralList";
                 }else if(this.checkPower("userReturnIntegralList")){
                     dotype="userReturnIntegralList";

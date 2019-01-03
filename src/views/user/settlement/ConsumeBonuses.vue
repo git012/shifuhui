@@ -30,7 +30,7 @@
                 </Col>
                 <Col span="13">
                     <div class="buttonGroup">
-                        <Button type="error">红积分</Button>
+                        <!--<Button type="error">红积分</Button>-->
                         <Button type="primary" @click="$emit('doWhat','userBuyIntegralList')">购物积分</Button>
                         <Button type="primary" @click="$emit('doWhat','userReturnIntegralList')">白积分</Button>
                         

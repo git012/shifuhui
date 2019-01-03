@@ -405,7 +405,7 @@ export const appRouter = [
             {
                 path: 'OrderWhitemanagement',
                 name: 'OrderWhitemanagement',
-                title: '白积分订单管理',
+                title: '福惠积分订单',
                 mixedRights: true,
                 access: 1,
                 component: resolve => {
@@ -561,75 +561,75 @@ export const appRouter = [
         ]
     },
       //兑付方案
-     {
-        path: '/cashList',
-        icon: 'compose',
-        name: 'cashList',
-        title: '兑付方案',
-        mixedRights: false,
-        access: 1,
-        component: Main,
-        children: [
-            {
-                path: 'List',
-                icon: 'compose',
-                name: 'List',
-                title: '兑付方案',
-                mixedRights: false,
-                access: 1,
-                component: resolve => {
-                    require(['./views/cashList/List.vue'], resolve);
-                }
-            }
-        ]
-    },
+//   {
+//      path: '/cashList',
+//      icon: 'compose',
+//      name: 'cashList',
+//      title: '兑付方案',
+//      mixedRights: false,
+//      access: 1,
+//      component: Main,
+//      children: [
+//          {
+//              path: 'List',
+//              icon: 'compose',
+//              name: 'List',
+//              title: '兑付方案',
+//              mixedRights: false,
+//              access: 1,
+//              component: resolve => {
+//                  require(['./views/cashList/List.vue'], resolve);
+//              }
+//          }
+//      ]
+//  },
     //积分审核
-     {
-        path: '/integral',
-        icon: 'settings',
-        name: 'integral',
-        title: '积分审核',
-        mixedRights: false,
-        access: 1,
-        component: Main,
-        children: [
-            {
-                path: 'Lists',
-                icon: 'settings',
-                name: 'Lists',
-                title: '积分审核',
-                mixedRights: false,
-                access: 1,
-                component: resolve => {
-                    require(['./views/integral/Lists.vue'], resolve);
-                }
-            }
-        ]
-    },
+//   {
+//      path: '/integral',
+//      icon: 'settings',
+//      name: 'integral',
+//      title: '积分审核',
+//      mixedRights: false,
+//      access: 1,
+//      component: Main,
+//      children: [
+//          {
+//              path: 'Lists',
+//              icon: 'settings',
+//              name: 'Lists',
+//              title: '积分审核',
+//              mixedRights: false,
+//              access: 1,
+//              component: resolve => {
+//                  require(['./views/integral/Lists.vue'], resolve);
+//              }
+//          }
+//      ]
+//  },
 
     // 创始会员
-     {
-        path: '/charterMember',
-        icon: 'person-add',
-        name: 'charterMember',
-        title: '创始会员',
-        mixedRights: false,
-        access: 1,
-        component: Main,
-        children: [
-            {
-                path: 'Listss',
-                icon: 'person-add',
-                name: 'Listss',
-                title: '创始会员',
-                mixedRights: false,
-                access: 1,
-                component: resolve => {
-                    require(['./views/charterMember/Listss.vue'], resolve);
-                }
-            }
-        ]
-    },
+//   {
+//      path: '/charterMember',
+//      icon: 'person-add',
+//      name: 'charterMember',
+//      title: '创始会员',
+//      mixedRights: false,
+//      access: 1,
+//      component: Main,
+//      children: [
+//          {
+//              path: 'Listss',
+//              icon: 'person-add',
+//              name: 'Listss',
+//              title: '创始会员',
+//              mixedRights: false,
+//              access: 1,
+//              component: resolve => {
+//                  require(['./views/charterMember/Listss.vue'], resolve);
+//              }
+//          }
+//      ]
+//  },
     // 数据统计
 
     // {

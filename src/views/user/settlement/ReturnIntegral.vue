@@ -1,6 +1,6 @@
 <style>
 </style>
-<!-- 会员白积分明细 -->
+<!-- 会员福惠积分明细 -->
 <template>
     <div class="doBox">
         <Spin size="large" fix v-if="switching"></Spin>
@@ -29,9 +29,9 @@
                 </Col>
                 <Col span="14">
                     <div class="buttonGroup">
-                        <Button type="primary" @click="$emit('doWhat','userConsumeBonusesList')">红积分</Button>
+                        <!--<Button type="primary" @click="$emit('doWhat','userConsumeBonusesList')">红积分</Button>-->
                         <Button type="primary" @click="$emit('doWhat','userBuyIntegralList')">购物积分</Button>
-                        <Button type="error">白积分</Button>
+                        <Button type="error">福惠积分</Button>
                       
                     </div>
                 </Col>
@@ -119,9 +119,9 @@ export default {
             saveType: "new",
             recordType:["不限类型","转出","转入"],
             recordIsOnline:["不限类型","线上","线下"],
-            recordKind:["----","白积分转红积分万分之五","消费返还","订单评价","消费券返还","消费券分享人奖励","升级奖励","直营店购物赠送","大转盘抽奖","注册分享奖励","代理月结算","商户推荐奖励"],
+            recordKind:["----","福惠积分转购物积分万分之五","消费返还","订单评价","消费券返还","消费券分享人奖励","升级奖励","直营店购物赠送","大转盘抽奖","注册分享奖励","代理月结算","商户推荐奖励"],
 
-            // 会员白积分   种类 1-白积分转红积分万分之五， 2消费返还  3订单评价 4消费券返还 5消费券分享人奖励 6升级奖励 7直营店购物赠送8大转盘抽奖 9注册分享奖励10代理月结算 11商户推荐奖励
+            // 会员福惠积分   种类 1-福惠积分转红积分万分之五， 2消费返还  3订单评价 4消费券返还 5消费券分享人奖励 6升级奖励 7直营店购物赠送8大转盘抽奖 9注册分享奖励10代理月结算 11商户推荐奖励
             doType:"userReturnIntegralList",
             switching:false,
             tableData: [],

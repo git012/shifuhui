@@ -109,7 +109,7 @@ export default {
         return {
             paramData:{},  
             preRechargeData:{},    
-            currentView:"ConsumeBonuses",
+            currentView:"BuyIntegral",
            publicData:{
                 user_sex:["未知","男","女"],
                 is_shareholder:["非股东","股东"],
@@ -162,7 +162,7 @@ export default {
                     key: 'red_score'
                 },
                 {
-                    title: '白积分总额',
+                    title: '福惠积分总额',
                     align: 'center',
                     key: 'white_score'
                 },
@@ -301,7 +301,7 @@ export default {
         doName () {
             if (this.doType=="userConsumeBonusesList")  return "结算对账 - 红积分 - " + this.paramData.agent_name;//红积分
             if (this.doType=="userBuyIntegralList")     return "结算对账 - 购物积分 - " + this.paramData.agent_name;
-            if (this.doType=="userReturnIntegralList")  return "结算对账 - 白积分 - " + this.paramData.agent_name;
+            if (this.doType=="userReturnIntegralList")  return "结算对账 - 福惠积分 - " + this.paramData.agent_name;
             if (this.doType=="userAgentBonusesList")    return "结算对账 - 代理分红 - " + this.paramData.name;
             if (this.doType=="userRechargeList")        return "结算对账 - 充值 - " + this.paramData.name;
             if (this.doType=="userCashAccountList")     return "结算对账 - 预存款账户 - " + this.paramData.name;
@@ -323,14 +323,15 @@ export default {
 
         // "userConsumeBonusesList"    : "wkmanager/score/merchant_red_score",//红积分
         //  "userBuyIntegralList"       : "wkmanager/score/merchant_shopping_score",//购物积分
-        // "userReturnIntegralList"    : "wkmanager/score/merchant_white_score",//白积分
+        // "userReturnIntegralList"    : "wkmanager/score/merchant_white_score",//福惠积分
         doWhat (dotype,dataIndex) {
             // let dotype=dotype;
             console.log(this.tableData[dataIndex]);
             if(dotype=="userAccountList"){
-                if(this.checkPower("userConsumeBonusesList")){
-                    dotype="userConsumeBonusesList";
-                }else if(this.checkPower("userBuyIntegralList")){
+//              if(this.checkPower("userConsumeBonusesList")){
+//                  dotype="userConsumeBonusesList";
+//              }else 
+                if(this.checkPower("userBuyIntegralList")){
                     dotype="userBuyIntegralList";
                 }else if(this.checkPower("userReturnIntegralList")){
                     dotype="userReturnIntegralList";
