@@ -13,9 +13,9 @@ fs.open('./src/config/env.js', 'w', function (err, fd) {
 module.exports = merge(webpackBaseConfig, {
     output: {
         // 正式
-        publicPath: 'http://manage.shifuhui.net/iview/',
+//      publicPath: 'http://manage.shifuhui.net/iview/',
         // 测试
-//      publicPath: 'http://tmanage.yugoubao.net/iview/',
+        publicPath: 'http://t-manage.yugoubao.net/iview/',
 
         filename: '[name].js?v=[hash]',
         chunkFilename: '[name].chunk.js?v=[hash]'
