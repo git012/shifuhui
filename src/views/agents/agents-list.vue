@@ -90,19 +90,23 @@ export default {
                 {
                     title: '代理公司名称',
                     // width: "160",
+                    align: 'center',
                     key: 'enterprise_name'
                 },
                 {
                     title: '代理商名称',
+                    align: 'center',
                     key: 'agent_name'
                 },
                 {
                     title: '代理商电话',
+                    align: 'center',
                     // width: "120",
                     key: 'tel'
                 },
                 {
                     title: '地区',
+                    align: 'center',
                     key: 'province_id',
                     render: (h, params) => {
                         
@@ -131,26 +135,27 @@ export default {
                 },
                 {
                     title: '余额',
-                    align: 'right',
+                    align: 'center',
                     key: 'agent_score'
                 },
                  {
                     title: '购物积分',
-                    align: 'right',
+                    align: 'center',
                     key: 'shopping_score'
                 },
                 {
-                    title: '白积分',
-                    align: 'right',
+                    title: '福惠积分',
+                    align: 'center',
                     key: 'white_score'
                 },
-                {
-                    title: '红分红',
-                    align: 'right',
-                    key: 'red_score'
-                },
+//              {
+//                  title: '红分红',
+//                  align: 'right',
+//                  key: 'red_score'
+//              },
                 {
                     title: '账户锁定',
+                    align: 'center',
                     key: 'is_lock',
                     width:100,
                     render: (h, params) => {

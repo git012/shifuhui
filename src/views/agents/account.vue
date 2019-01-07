@@ -156,11 +156,11 @@ export default {
 //                  align: 'right',
 //                  key: 'agent_score'
 //              },
-                {
-                    title: '红积分总额',
-                    align: 'center',
-                    key: 'red_score'
-                },
+//              {
+//                  title: '红积分总额',
+//                  align: 'center',
+//                  key: 'red_score'
+//              },
                 {
                     title: '福惠积分总额',
                     align: 'center',

@@ -172,7 +172,7 @@ export const appRouter = [
                 }
             }, {
                 path: 'settlement',
-                icon: 'clipboard',
+                icon: 'ios-browsers',
                 name: 'user_settlement',
                 title: '会员结算',
                 mixedRights: true,
@@ -459,7 +459,7 @@ export const appRouter = [
                 path: 'account',
                 icon: 'clipboard',
                 name: 'agents_settlements',
-                title: '结算中心',
+                title: '代理商结算中心',
                 mixedRights: false,
                 access: 1,
                 component: resolve => {
@@ -468,7 +468,7 @@ export const appRouter = [
             },
              {
                 path: 'deposit',
-                icon: 'clipboard',
+                icon: 'ios-upload',
                 name: 'deposit',
                 title: '代理商提现管理',
                 mixedRights: false,
@@ -479,7 +479,7 @@ export const appRouter = [
             },  
             {
                 path: 'agentAudit',
-                icon: 'clipboard',
+                icon: 'ios-information',
                 name: 'agentAudit',
                 title: '代理商申请审核',
                 mixedRights: false,
@@ -527,15 +527,15 @@ export const appRouter = [
     },
 
     //限额管理
-     {
-        path: '/amountMax',
-        icon: 'pie-graph',
-        name: 'amountMax',
-        title: '限额管理',
-        mixedRights: false,
-        access: 1,
-        component: Main,
-        children: [
+//   {
+//      path: '/amountMax',
+//      icon: 'pie-graph',
+//      name: 'amountMax',
+//      title: '限额管理',
+//      mixedRights: false,
+//      access: 1,
+//      component: Main,
+//      children: [
 //          {
 //              path: 'listamountMax',
 //              icon: 'settings',
@@ -547,15 +547,38 @@ export const appRouter = [
 //                  require(['./views/amountMax/listamountMax.vue'], resolve);
 //              }
 //          },
+//           {
+//              path: 'listamountMaxUser',
+//              icon: 'clipboard',
+//              name: 'listamountMaxUser',
+//              title: '限额申请',
+//              mixedRights: false,
+//              access: 1,
+//              component: resolve => {
+//                  require(['./views/amountMax/listamountMaxUser.vue'], resolve);
+//              }
+//          }
+//      ]
+//  },
+    //平台活动
+     {
+        path: '/activity',
+        icon: 'android-contacts',
+        name: 'activity',
+        title: '平台活动',
+        mixedRights: false,
+        access: 1,
+        component: Main,
+        children: [
              {
-                path: 'listamountMaxUser',
+                path: 'integralWhite',
                 icon: 'clipboard',
-                name: 'listamountMaxUser',
-                title: '限额申请',
+                name: 'integralWhite',
+                title: '赠送白积分活动',
                 mixedRights: false,
                 access: 1,
                 component: resolve => {
-                    require(['./views/amountMax/listamountMaxUser.vue'], resolve);
+                    require(['./views/activity/integralWhite.vue'], resolve);
                 }
             }
         ]

@@ -204,11 +204,11 @@ export default {
                     align: 'center',
                     key: 'merchantWhiteScore'
                 },
-                {
-                    title: '红积分',
-                    align: 'center',
-                    key: 'merchantRedScore'
-                },
+//              {
+//                  title: '红积分',
+//                  align: 'center',
+//                  key: 'merchantRedScore'
+//              },
                 {
                     title: '状态',
                     key: 'applicantStatus',

@@ -363,7 +363,7 @@
                         align:'center'
                     },
                     {
-                        title: '白积分价格',
+                        title: '福惠积分价格',
                         // width: "12%",
                         key: 'price_integral',
                         align:'center'

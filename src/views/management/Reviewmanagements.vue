@@ -20,8 +20,36 @@
             <div class="doBox">
                 <Spin size="large" fix v-if="switching"></Spin>
                 <div class="ordler-list" v-if="doType=='list'">
+                <Row>
+                <Col span="11">
+                    <div class="search-box">
+                        <Form ref="searchData" :model="searchData" inline>
+                        	<FormItem prop="keyword">
+                                <Input type="text" v-model="searchData.keyword" placeholder="输入名称或者帐号搜索商户">
+                                    <Icon type="ios-eye" slot="prepend"></Icon>
+                                </Input>
+                            </FormItem>
+                            <!--<Select v-model="searchData.type" style="width:90px" placeholder="选择审核状态">
+                                <Option v-for="item,key in recordType" :value="key" :key="key">{{ item }}</Option>
+                            </Select>-->
+                            <FormItem>
+                                <ButtonGroup>
+                                    <Button type="primary" icon="search" @click="search()">搜索</Button>
+                                    <Button @click="resetSearch">清空</Button>
+                                </ButtonGroup>
+                            </FormItem>
+                        </Form>
+                    </div>
+                </Col>
+                <Col span="13">
+                    <div class="buttonGroup">
+		    
+		    
+ 							<Button type="primary" :loading="loadBut" style="margin: 10px 0 10px" @click="batchOperation()" >批量审核</Button>
+                    </div>
+                </Col>
+            </Row>
 
-                    <Button type="primary" :loading="loadBut" style="margin: 10px 0 10px" @click="batchOperation()" >批量操作</Button>
                     <Table class="small_table" border :columns="columns" :loading="getLoading" :data="tableData" @on-select="OnSelect" @on-select-all="allOnSelect" @on-selection-change="selectionchange"></Table>
 
                     <div class="page-box">
@@ -140,32 +168,31 @@
 
                     {
                         title: '状态',
-                        width: 80,
                         key: 'status',
                         // width: "100",
                         align: 'center',
-                        render: (h, params) => {
+                    render: (h, params) => {
 
                             let tagcolor="default";
                             let tagText="";
                             if(params.row.status==0){
-                                tagcolor="default";tagText="隐藏";
+                                tagcolor="#ff3300";tagText="隐藏";
                             };
                             if(params.row.status==1){
-                                tagcolor="green";tagText="显示";
+                                tagcolor="#00cc66";tagText="显示";
                             };
                             // if(params.row.status==2){
                             //     tagcolor="red";tagText="失败";
                             // };
                             return h('span', {
-                                props: {
-                                    color: tagcolor,
-                                    size: 'small'
+                                style: {
+                                    color: tagcolor
                                 }
                             }, tagText);
 
                         }
                     },
+
                     {
                         title: '操作',
                         key: 'action',
@@ -303,7 +330,7 @@
             },
 
             OnSelect(event){
-                // console.log(event);
+                this.allSelect=event;
             },
             selectionchange(event){
                 // console.log(event);
@@ -391,6 +418,7 @@
                     pageSize:this.page.pageSize
                 };
                 if(this.searchData.keyword!="")postData.search=Util.trim(this.searchData.keyword);
+                 if(this.searchData.type!="")postData.search=Util.trim(this.searchData.type);
                 if(this.searchData.startDate!="")postData.startDate=this.searchData.startDate;
                 if(this.searchData.shipStatus>=0)postData.status=this.searchData.shipStatus;
                 if(this.searchData.endDate!="")postData.endDate=this.searchData.endDate;
@@ -446,6 +474,7 @@
 
             //批量操作
             batchOperation(){
+            	if(this.allSelect.length>0){
                 let postData=[];
                 let postDatas={};
                 for (var i=0;i<this.allSelect.length;i++){
@@ -485,6 +514,7 @@
                                 this.tableData=newListData;
                                 this.updateStatus = false;
                                 this.doWhat("list");
+                                this.allSelect={};
                             }else{
                                 Config.showError({vm:this,data:data,
                                     errorMsg:""
@@ -502,6 +532,9 @@
                             errorMsg:"服务器通讯失败"
                         });
                     });
+            	}else{
+            		  Config.showError({vm:this,errorMsg:"请先勾选要审核的评论！"});
+            	}
             },
             //edit password
             changeStatus (index) {

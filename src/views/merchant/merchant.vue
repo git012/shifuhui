@@ -19,10 +19,10 @@
                     v-if="checkPower('list')&&doType!='list'"
                     @click="doWhat('list')" >返回列表
                 </Button>
-                <!--<Button type="primary" class="add-btu" size="small"
+                <Button type="primary" class="add-btu" size="small"
                     v-if="checkPower('add')&&doType=='list'"
                     @click="doWhat('add')" >添加商户
-                </Button>-->
+                </Button>
             </p>
             <div class="doBox">
                 <Spin size="large" fix v-if="switching"></Spin>
@@ -131,12 +131,12 @@
                                 <Input v-model="currentData.merchantPhone"></Input>
                             </div>
                         </FormItem>
-                        <FormItem label="悟空团账号：" prop="merchantWktName" >
+                        <FormItem label="世福惠账号：" prop="merchantWktName" >
                             <div style="width:200px;">
                                 <Input v-model="currentData.merchantWktName" readonly></Input>
                             </div>
                         </FormItem>
-                        <FormItem label="悟空团注册手机号：" prop="merchantWktMobile" >
+                        <FormItem label="世福惠注册手机号：" prop="merchantWktMobile" >
                             <div style="width:200px;">
                                 <Input v-model="currentData.merchantWktMobile" readonly></Input>
                             </div>
@@ -488,7 +488,7 @@ export default {
                     key: 'merchantTypeName'
                 },
                 {
-                    title: '白积分商品折扣差',
+                    title: '福惠积分商品折扣差',
                     align: 'center',
                     key: 'merchantWhitePointDiscount',
                     render: (h, params) => {
@@ -753,10 +753,10 @@ export default {
                     { validator: validePhone }
                 ],
                 merchantWktName: [
-                    	{ required: true, message: '请输入悟空团账号',trigger: 'blur' }
+                    	{ required: true, message: '请输入世福惠账号',trigger: 'blur' }
                     ],
                     merchantWktMobile: [
-                    	{ required: true, message: '请输入悟空团注册手机号',trigger: 'blur' }
+                    	{ required: true, message: '请输入世福惠注册手机号',trigger: 'blur' }
                     ],
                     merchantBDName: [
                     	{ required: true, message: '请输入分享人用户名',trigger: 'blur' }
