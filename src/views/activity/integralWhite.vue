@@ -25,7 +25,7 @@
             <div class="doBox">
                 <Spin size="large" fix v-if="switching"></Spin>
                
-                    <!--<AddForm @doWhat="doWhat" :editData="currentData" :editType="doType" v-if="doType=='add'||doType=='edit'"></AddForm>-->
+                    <AddForm @doWhat="doWhat" :editData="currentData" :editType="doType" v-if="doType=='add'||doType=='edit'"></AddForm>
                 
                 <div class="ordler-list" v-if="doType=='list'">
                     <!--<div class="search-box">
@@ -59,14 +59,14 @@
 <script>
 import Config from '../../config/config';
 import Util from '../../libs/util';
-//import AddForm from './add.vue';
+import AddForm from './addActivity.vue';
 import Cookies from 'js-cookie';
 
 
 
 export default {
     name: 'news_list',
-    components : { },
+    components : {AddForm},
     data () {
         return {
             tableOptions:{

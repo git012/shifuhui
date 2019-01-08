@@ -553,8 +553,8 @@ export default {
             showTypeOff:false,
             tableData: [],
             merchantTypeData: [],
-            zkData:[{'value':'0.06','name':'6%'},{'value':'0.1','name':'10%'},{'value':'0.15','name':'15%'},{'value':'0.2','name':'20%'}],
-            zkWhiteData:[{'value':'0.8','name':'80%'},{'value':'0.85','name':'85%'}],
+            zkData:[{'value':'0.04','name':'4%'},{'value':'0.08','name':'8%'},{'value':'0.12','name':'12%'},{'value':'0.16','name':'16%'}],
+            zkWhiteData:[{'value':'0.9','name':'90%'}],
             areaData:{
                 areaDataReady:3,
                 province:[],
