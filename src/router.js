@@ -561,28 +561,28 @@ export const appRouter = [
 //      ]
 //  },
     //平台活动
-     {
-        path: '/activity',
-        icon: 'android-contacts',
-        name: 'activity',
-        title: '平台活动',
-        mixedRights: false,
-        access: 1,
-        component: Main,
-        children: [
-             {
-                path: 'integralWhite',
-                icon: 'clipboard',
-                name: 'integralWhite',
-                title: '赠送白积分活动',
-                mixedRights: false,
-                access: 1,
-                component: resolve => {
-                    require(['./views/activity/integralWhite.vue'], resolve);
-                }
-            }
-        ]
-    },
+//   {
+//      path: '/activity',
+//      icon: 'android-contacts',
+//      name: 'activity',
+//      title: '平台活动',
+//      mixedRights: false,
+//      access: 1,
+//      component: Main,
+//      children: [
+//           {
+//              path: 'integralWhite',
+//              icon: 'clipboard',
+//              name: 'integralWhite',
+//              title: '赠送白积分活动',
+//              mixedRights: false,
+//              access: 1,
+//              component: resolve => {
+//                  require(['./views/activity/integralWhite.vue'], resolve);
+//              }
+//          }
+//      ]
+//  },
       //兑付方案
 //   {
 //      path: '/cashList',

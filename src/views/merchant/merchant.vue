@@ -42,7 +42,7 @@
                         </FormItem>
                         <FormItem label="商户账号：" prop="merchantNameAccount">
                             <div style="width:200px;">
-                                <Input v-model="currentData.userName" readonly="readonly"></Input>
+                                <Input v-model="currentData.userName"></Input>
                             </div>
                         </FormItem>
                         <FormItem label="商户面积：" prop="operating_area">
@@ -133,12 +133,12 @@
                         </FormItem>
                         <FormItem label="世福惠账号：" prop="merchantWktName" >
                             <div style="width:200px;">
-                                <Input v-model="currentData.merchantWktName" readonly></Input>
+                                <Input v-model="currentData.merchantWktName"></Input>
                             </div>
                         </FormItem>
                         <FormItem label="世福惠注册手机号：" prop="merchantWktMobile" >
                             <div style="width:200px;">
-                                <Input v-model="currentData.merchantWktMobile" readonly></Input>
+                                <Input v-model="currentData.merchantWktMobile"></Input>
                             </div>
                         </FormItem>
                         <FormItem label="分享人用户名：" prop="merchantBDName">

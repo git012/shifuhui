@@ -12,7 +12,7 @@
         :rules="currentDataValidate"
         @submit="saveEdit"
     >
-		<FormItem label="赠送白积分上调比率：">
+		<FormItem label="赠送福惠积分上调比率：">
             <Select v-model="currentData.type" style="width:200px" placeholder="选择赠送白积分上调比率">
                 <Option v-for="item in zkWhiteData" :value="item.value" :key="key">{{ item.name }}</Option>
             </Select>

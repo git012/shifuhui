@@ -19,7 +19,7 @@
                 </Button>
                 <Button type="primary" class="add-btu" size="small" 
                     v-if="checkPower('add')&&doType=='list'" 
-                    @click="doWhat('add')" >添加白积分活动
+                    @click="doWhat('add')" >添加福惠积分活动
                 </Button>
             </p>
             <div class="doBox">
