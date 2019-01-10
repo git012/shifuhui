@@ -249,7 +249,7 @@
             <Modal v-model="updateStatus" :closable='false' :mask-closable=false :width="500">
                 <h3 slot="header" style="color:#2D8CF0">商户审核</h3>
                 <Form ref="updateStatusForm" :model="updateStatusForm" :label-width="180" label-position="right" :rules="currentDataValidate">
-                    <FormItem label="选择白积分商品折扣差：" prop="merchantRatior">
+                    <FormItem label="选择福惠积分商品折扣差：" prop="merchantRatior">
                             <div style="width:300px;">
                                 <Select style="width:200px" v-model="updateStatusForm.merchantRatior">
                                     <Option v-for="item in zkWhiteData" :value="item.value" :key="item.value">{{ item.name }}</Option>
@@ -638,10 +638,10 @@ export default {
             },
             addDataValidate: {
                 merchantRatior: [
-                    { required: true,message: '请选择白积分商品折扣差', trigger: 'change' }
+                    { required: false,message: '请选择福惠积分商品折扣差', trigger: 'change' }
                 ],
                 merchantTyper: [
-                    { required: true, message: '请选择选择商户折扣差', trigger: 'change' }
+                    { required: false, message: '请选择选择商户折扣差', trigger: 'change' }
                 ],
                 applicantStatus: [
                         { required: true, message: '请选择是否通过', trigger: 'change' }

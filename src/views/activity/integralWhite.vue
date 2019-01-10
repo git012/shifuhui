@@ -15,7 +15,7 @@
                 {{doName}}
                 <Button type="warning" class="add-btu margin-left-10" size="small" 
                     v-if="checkPower('list')&&doType!='list'" 
-                    @click="doWhat('list')" >返回列表
+                    @click="doWhat('list')" >返回列表 
                 </Button>
                 <Button type="primary" class="add-btu" size="small" 
                     v-if="checkPower('add')&&doType=='list'" 
@@ -180,9 +180,8 @@ export default {
         },
         doName () {
             if (this.doType=="list") return "活动管理";
-            if (this.doType=="edit") return "编辑资讯";
-            if (this.doType=="add") return "添加白积分活动";
-            return "资讯详情";
+            if (this.doType=="add") return "添加福惠积分活动";
+            return "活动详情";
         }
     },
     methods: {
