@@ -26,7 +26,7 @@
             </p>
             <div class="doBox">
                 <Spin size="large" fix v-if="switching"></Spin>
-                <div v-if="doType=='add'||doType=='edit'">
+                <div v-if="doType=='edit'">
                     <Form
                         ref="currentData"
                         :model="currentData"
@@ -77,13 +77,13 @@
                         <FormItem label="商户类型：" prop="merchantTypeMerchant">
                             <RadioGroup v-model="currentData.merchantTypeMerchant" @on-change="switchoverType">
                                 <Radio :label="1">
-                                    <span>线下商家(悟空商圈)</span>
+                                    <span>线下商家(福惠商圈)</span>
                                 </Radio>
                                 <Radio :label="2">
-                                    <span>线上商家(悟空商城)</span>
+                                    <span>线上商家(福惠商城)</span>
                                 </Radio>
                                 <Radio :label="3">
-                                    <span>白积分商城</span>
+                                    <span>福惠积分商城</span>
                                 </Radio>
                             </RadioGroup>
                         </FormItem>
@@ -216,6 +216,166 @@
                         </FormItem>
                         <FormItem label="" >
                             <Button type="primary" style="width: 100px;margin-right:10px" @click="saveEdit">保存</Button>
+                            <Button type="default" style="width: 100px;" @click="doWhat('list')">返回列表</Button>
+                        </FormItem>
+                    </Form>
+                   	<template>
+                 		<div class="shopshow">
+                 			<div id="qrcode" ref="qrcode"></div>
+            				<div><br>点击右键选择图片另存为<br>即可下载二维码</div>
+                 		</div>
+            		</template>
+                </div>
+<!--添加商户-->                
+                <div v-if="doType=='add'">
+                    <Form
+                        ref="currentData"
+                        :model="currentData"
+                        :label-width="150"
+                        label-position="right"
+                        :rules="currentDataValidate"
+                    >
+                 
+                        <FormItem label="商户名称：" prop="merchantName">
+                            <div style="width:200px;">
+                                <Input v-model="currentData.merchantName"></Input>
+                            </div>
+                        </FormItem>
+                        <FormItem label="商户账号：" prop="userName">
+                            <div style="width:200px;">
+                                <Input v-model="currentData.userName"></Input>
+                            </div>
+                        </FormItem>
+                        <FormItem label="商户区域：" prop="merchantProvinceId">
+                            <div style="display:inline-block;width:140px;">
+                                <Select v-model="currentData.merchantProvinceId" placeholder="请选择省份" @on-change="setCity">
+                                    <Option v-if="item" v-for="item in areaData.province" :value="item.id" :key="item.id">{{ item.name }}</Option>
+                                </Select>
+                            </div>
+                            <div style="display:inline-block;width:140px;">
+                                <Select v-if="areaData.citys.length&&currentData.merchantProvinceId" placeholder="请选择城市" v-model="currentData.merchantCityId" @on-change="setDistrict">
+                                    <Option v-if="item" v-for="item in areaData.citys" :value="item.id" :key="item.id">{{ item.name }}</Option>
+                                </Select>
+                            </div>
+                            <div style="display:inline-block;width:140px;">
+                                <Select v-if="areaData.district.length&&currentData.merchantCityId" placeholder="请选择区县" v-model="currentData.merchantDistrictId">
+                                    <Option v-if="item" v-for="item in areaData.district" :value="item.id" :key="item.id">{{ item.name }}</Option>
+                                </Select>
+                            </div>
+                        </FormItem>
+						<FormItem label="选择福惠积分商品折扣差：" prop="merchantRatior">
+                            <div style="width:300px;">
+                                <Select style="width:200px" v-model="currentData.merchantRatior">
+                                    <Option v-for="item in zkWhiteData" :value="item.value" :key="item.value">{{ item.name }}</Option>
+                                </Select>
+                            </div>
+                    	</FormItem>                    
+                    	<FormItem label="选择商户折扣差：" prop="merchantTyper">
+                            <div style="width:300px;">
+                                <Select style="width:200px" v-model="currentData.merchantTyper">
+                                    <Option v-for="item in zkData" :value="item.value" :key="item.value">{{ item.name }}</Option>
+                                </Select>
+                            </div>
+                    	</FormItem>
+                        <FormItem label="经营地址：" prop="merchantAddress">
+                            <div style="width:200px;">
+                                <Input v-model="currentData.merchantAddress"></Input>
+                            </div>
+                        </FormItem>
+                        <FormItem label="商户类型：" prop="merchantTypeMerchant">
+                            <RadioGroup v-model="currentData.merchantTypeMerchant" @on-change="switchoverType">
+                                <Radio :label="1">
+                                    <span>线下商家(福惠商圈)</span>
+                                </Radio>
+                                <Radio :label="2">
+                                    <span>线上商家(福惠商城)</span>
+                                </Radio>
+                                <Radio :label="3">
+                                    <span>福惠积分商城</span>
+                                </Radio>
+                            </RadioGroup>
+                        </FormItem>
+						<FormItem label="是否直营店：" prop="is_direct">
+                            <RadioGroup v-model="currentData.is_direct">
+                                <Radio :label="1">
+                                    <span>直营店</span>
+                                </Radio>
+                                <Radio :label="2">
+                                    <span>联盟商家</span>
+                                </Radio>
+                            </RadioGroup>
+                        </FormItem>
+                        <FormItem label="所属行业：" v-if="showTypeOff" prop="merchantType">
+                            <div style="display:inline-block;width:140px;">
+                                <Select v-model="currentData.merchantType">
+                                    <Option v-if="item" v-for="item in areaData.typeMerchant" :value="item.id" :key="item.id">{{ item.name }}</Option>
+                                </Select>
+                            </div>
+                        </FormItem>
+                        <FormItem label="所属行业：" v-if="showTypeOn" prop="merchantType">
+                            <div style="display:inline-block;width:140px;">
+                                <Select v-model="currentData.merchantType">
+                                    <Option v-if="item" v-for="item in areaData.typeMerchantOn" :value="item.id" :key="item.id">{{ item.name }}</Option>
+                                </Select>
+                            </div>
+                        </FormItem>
+                        <FormItem label="经营业务：" prop="merchantBusinessM">
+                            <div style="width:200px;">
+                                <Input v-model="currentData.merchantBusinessM"></Input>
+                            </div>
+                        </FormItem>
+                        <FormItem label="实际经营负责人：" prop="merchantBusinessDirector">
+                            <div style="width:200px;">
+                                <Input v-model="currentData.merchantBusinessDirector"></Input>
+                            </div>
+                        </FormItem>
+                        <FormItem label="负责人联系电话：" prop="merchantBusinessPhone">
+                            <div style="width:200px;">
+                                <Input v-model="currentData.merchantBusinessPhone"></Input>
+                            </div>
+                        </FormItem>
+                        <FormItem label="商家服务电话：" prop="merchantPhone">
+                            <div style="width:200px;">
+                                <Input v-model="currentData.merchantPhone"></Input>
+                            </div>
+                        </FormItem>
+                        <FormItem label="世福惠账号：" prop="merchantWktName" >
+                            <div style="width:200px;">
+                                <Input v-model="currentData.merchantWktName"></Input>
+                            </div>
+                        </FormItem>
+                        <FormItem label="世福惠注册手机号：" prop="merchantWktMobile" >
+                            <div style="width:200px;">
+                                <Input v-model="currentData.merchantWktMobile"></Input>
+                            </div>
+                        </FormItem>
+                        <FormItem label="分享人用户名：" prop="merchantBDName">
+                            <div style="width:200px;">
+                                <Input v-model="currentData.merchantBDName"></Input>
+                            </div>
+                        </FormItem>
+                        <FormItem label="登录密码：" prop="userPassword">
+                            <div style="width:204px;">
+                                <Input v-model="currentData.userPassword" ></Input>
+                            </div>
+                        </FormItem>
+                        <FormItem label="确认登录密码：" prop="userConfirmPassword">
+                            <div style="width:204px;">
+                                <Input v-model="currentData.userConfirmPassword" ></Input>
+                            </div>
+                        </FormItem>
+                        <FormItem label="提现密码：" prop="merchantPasswd">
+                            <div style="width:204px;">
+                                <Input v-model="currentData.merchantPasswd" ></Input>
+                            </div>
+                        </FormItem>
+                        <FormItem label="确认提现密码：" prop="merchantConfirmPasswd">
+                            <div style="width:204px;">
+                                <Input v-model="currentData.merchantConfirmPasswd" ></Input>
+                            </div>
+                        </FormItem>
+                        <FormItem label="" >
+                            <Button type="primary" style="width: 100px;margin-right:10px" @click="merchantCreate">保存</Button>
                             <Button type="default" style="width: 100px;" @click="doWhat('list')">返回列表</Button>
                         </FormItem>
                     </Form>
@@ -423,11 +583,18 @@ export default {
                 callback();
             }
         };
-        const valideMerchantProvinceId = (rule, value, callback) => {
+        const validemerchantType = (rule, value, callback) => {
             if (value>0) {
                 callback();
             } else {
                 callback(new Error('请选择地区'));
+            }
+        };
+        const valideMerchantProvinceId = (rule, value, callback) => {
+            if (value>0) {
+                callback();
+            } else {
+                callback(new Error('请选择所属行业'));
             }
         };
         return {
@@ -586,6 +753,8 @@ export default {
             },          
             recordStatus:[{"value":"0","name":"审核中"},{"value":"1","name":"已通过"},{"value":"2","name":"已拒绝"}],
             recordStatus2:[{"value":"","name":"默认排序"},{"value":"0","name":"审核中靠前"},{"value":"2","name":"已拒绝靠前"},{"value":"1","name":"已通过靠前"}],
+			zkData:[{'value':'0.04','name':'4%'},{'value':'0.08','name':'8%'},{'value':'0.12','name':'12%'},{'value':'0.16','name':'16%'}],
+            zkWhiteData:[{'value':'0.9','name':'90%'}],
             page: {
                 dataCount:0,
                 pageCount:0,
@@ -725,6 +894,18 @@ export default {
                 ]
             },
             editDataValidate: {
+            	merchantRatior: [
+                    { required: true,message: '请选择福惠积分商品折扣差', trigger: 'change' }
+                ],
+                merchantTyper: [
+                    { required: true, message: '请选择选择商户折扣差', trigger: 'change' }
+                ],
+                merchantProvinceId: [
+                     { required: true, validator: valideMerchantProvinceId, trigger: 'change' }
+                ],
+                userName: [
+                    { required: true, message: '请填写商户账号', trigger: 'blur' }
+                ],
                 merchantName: [
                     { required: true, message: '请输入商户名称', trigger: 'blur' }
                 ],
@@ -782,19 +963,26 @@ export default {
                     merchantTypeMerchant: [
                     	{ required: true,validator: valideMerTypeM,trigger: 'change' }
                     ],
-                userPassword: [
+          			userPassword: [
+                    { required: true, message: '请输入登录密码', trigger: 'blur' },
                     { min: 6, message: '请至少输入6个字符', trigger: 'blur' },
                     { max: 32, message: '最多输入32个字符', trigger: 'blur' }
                 ],
                 userConfirmPassword: [
+                    { required: true, message: '请再次输入登录密码', trigger: 'blur' },
                     { validator: valideRePassword, trigger: 'blur' }
                 ],
                 merchantPasswd: [
+                    { required: true, message: '请输入提现密码', trigger: 'blur' },
                     { min: 6, message: '请至少输入6个字符', trigger: 'blur' },
                     { max: 32, message: '最多输入32个字符', trigger: 'blur' }
                 ],
                 merchantConfirmPasswd: [
+                    { required: true, message: '请再次输入提现密码', trigger: 'blur' },
                     { validator: valideCashPassword, trigger: 'blur' }
+                ],
+                merchantType: [
+                    {  required: true, validator: validemerchantType,trigger: 'change' }
                 ],
             },
             updateStatusForm: {},
@@ -854,6 +1042,7 @@ export default {
             if(dotype=="add"){
                 this.resetCurrentData();
                 this.doType="add";
+                this.showTypeOn=true;
             };
             if(dotype=="edit"){
                 this.showEdit(dataIndex);
@@ -1243,7 +1432,7 @@ export default {
                     formDataSe.append("userConfirmPassword",this.currentData.userConfirmPassword || "");
                     formDataSe.append("merchantPasswd", this.currentData.merchantPasswd || "");
                     formDataSe.append("merchantConfirmPasswd",this.currentData.merchantConfirmPasswd || "");
-                    let requestUrl=Config.apiRootPath+Config.api.merchant.merchant_list.add;
+//                  let requestUrl=Config.apiRootPath+Config.api.merchant.merchant_list.add;
                     if(this.currentData.face.file){
                         formDataSe.append("applicantIdCardImage", this.currentData.face.file);
                     };
@@ -1257,6 +1446,76 @@ export default {
                         formDataSe.append("merchantId", this.currentData.merchantId);
                         requestUrl=Config.apiRootPath+Config.api.merchant.merchant_list.edit;
                     };
+                    let _this=this;
+                    console.log(formDataSe);
+                    //拉取用户类型
+                    $.ajax({
+                        url: requestUrl,
+                        type: 'POST',
+                        dataType: 'json',
+                        data: formDataSe,
+                        cache: false,  
+                        contentType: false,  
+                        processData: false 
+                    })
+                    .done((data)=>{
+                        this.switching=false;
+                        //userTypeList
+                        if(!!data){
+                            if(data.code==0){
+                                if(this.doType=="add")this.doWhat("list");
+                                this.$Message.success("账户保存成功！");
+                                this.doWhat('list');
+                            }else{
+                                Config.showError({vm:this,data:data,
+                                    errorMsg:""
+                                });
+                            }
+                        }else{
+                            Config.showError({vm:this,data:data,
+                                errorMsg:"请求失败"
+                            });
+                        }
+                    })
+                    .fail((xhr,status,error)=>{
+                        this.switching=false;
+                        Config.showError({vm:this,
+                            errorMsg:"服务器通讯失败"
+                        });
+                    });
+                }
+            })
+        },
+        merchantCreate(){
+            if(!this.hasDataChange)return;
+            this.$refs['currentData'].validate((valid) => {
+                if (valid) {
+                    this.switching = true;
+                    var formDataSe = new FormData();
+                    formDataSe.append("ssid", Cookies.get('ssid'));
+                    formDataSe.append("merchantName", this.currentData.merchantName);
+                    formDataSe.append("userName", this.currentData.userName);
+                    formDataSe.append("merchantWhitePointDiscount", this.currentData.merchantRatior);
+                    formDataSe.append("merchantRatio", this.currentData.merchantTyper);
+                    formDataSe.append("merchantProvince",this.currentData.merchantProvinceId);
+                    formDataSe.append("merchantCity",this.currentData.merchantCityId);
+                    formDataSe.append("merchantDistrict",this.currentData.merchantDistrictId);
+                    formDataSe.append("merchantAddress",this.currentData.merchantAddress);
+                    formDataSe.append("is_direct",this.currentData.is_direct);
+                    formDataSe.append("merchantTypeMerchant",this.currentData.merchantTypeMerchant);
+                    formDataSe.append("merchantType",this.currentData.merchantType);
+                    formDataSe.append("merchantBusinessM", this.currentData.merchantBusinessM);
+                    formDataSe.append("merchantBusinessDirector",this.currentData.merchantBusinessDirector);
+                    formDataSe.append("merchantBusinessPhone", this.currentData.merchantBusinessPhone);
+                    formDataSe.append("merchantPhone",this.currentData.merchantPhone);
+                    formDataSe.append("merchantWktName",this.currentData.merchantWktName);
+                    formDataSe.append("merchantWktMobile",this.currentData.merchantWktMobile);
+                    formDataSe.append("merchantBDName",this.currentData.merchantBDName);
+                    formDataSe.append("userPassword",this.currentData.userPassword || "");
+                    formDataSe.append("userConfirmPassword",this.currentData.userConfirmPassword || "");
+                    formDataSe.append("merchantPasswd", this.currentData.merchantPasswd || "");
+                    formDataSe.append("merchantConfirmPasswd",this.currentData.merchantConfirmPasswd || "");
+                  	let requestUrl=Config.apiRootPath+Config.api.merchant.merchant_list.add;
                     let _this=this;
                     console.log(formDataSe);
                     //拉取用户类型

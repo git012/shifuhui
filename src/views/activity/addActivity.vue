@@ -51,7 +51,8 @@ export default {
             Kind:{},
             uploadUrl:{},
             currentData:{},
-            zkWhiteData:[{'value':'0.9','name':'90%'}],
+            zkWhiteData:[{'value':'0.1','name':'10%'},{'value':'0.2','name':'20%'},{'value':'0.3','name':'30%'},{'value':'0.4','name':'40%'},{'value':'0.5','name':'50%'},{'value':'0.6','name':'60%'}
+            ,{'value':'0.7','name':'70%'},{'value':'0.8','name':'80%'},{'value':'0.9','name':'90%'}],
             defaultData:{
                 id: 0,
                 content: "",
@@ -63,8 +64,8 @@ export default {
             FormSubmiting:false,
             save_loading: false,
             addDataValidate: {
-                title: [
-                    { required: true, message: '请填写标题', trigger: 'blur' }
+                searchDate: [
+                    { required: true, message: '请选择活动时间范围', trigger: 'blur' }
                 ],
                 author: [
                     { required: true, message: '请输入作者', trigger: 'blur' }
@@ -105,7 +106,6 @@ export default {
         },
         currentDataValidate () {
             if(this.doType=="add")return this.addDataValidate;
-            return this.editDataValidate;
         },
         hasDataChange () {
             return !(JSON.stringify(this.currentData)==JSON.stringify(this.editData));
@@ -118,7 +118,10 @@ export default {
             this.$refs['currentData'].validate((valid) => {
 
                 if (valid) {
-
+                	if(this.currentData.searchDate.length){
+                		this.currentData.startDate=Util.FormatDate(this.searchData.searchDate[0],"yyyy-MM-dd");
+                		this.currentData.endDate=Util.FormatDate(this.searchData.searchDate[1],"yyyy-MM-dd");
+                	}
                     this.switching = true;
                     let postData={
                         ssid:Cookies.get('ssid'),

@@ -334,10 +334,11 @@
             },
             selectionchange(event){
                 // console.log(event);
+                this.allSelect=event;
             },
             allOnSelect(event){
                 // console.log(event);
-                this.allSelect=event
+                this.allSelect=event;
             },
             //controller
             checkPower (dotype) {
