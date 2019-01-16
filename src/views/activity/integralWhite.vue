@@ -76,11 +76,20 @@ export default {
             columns: [
                 {
                     title: '活动名称',
-                    key: 'title'
+                    key: 'title',
+                    align:'center',
+                     render: (h, params) => {
+                     	return h('span',{},'福惠积分活动');
+                     }
                 },
                  {
                     title: '上调比例',
-                    key: 'title'
+                    key: 'proportion_integral',
+                    align:'center',
+                     render: (h, params) => {
+                     	let spanText=params.row.proportion_integral*100+"%";
+                     	return h('span',{},spanText);
+                     }
                 },
                 {
                     title: '创建时间',
@@ -89,14 +98,42 @@ export default {
                     key: 'date_added'
                 },
                 {
+                    title: '开始时间',
+                    // width: "130",
+                    align: 'center',
+                    key: 'start_time'
+                },
+                {
                     title: '结束时间',
                     // width: "130",
                     align: 'center',
-                    key: 'date_added'
+                    key: 'end_time'
+                },
+                {
+                    title: '状态',
+                    key: 'status',
+                    width: 150,
+                    align: 'center',
+                    render: (h, params) => {
+                            let tagcolor="default";
+                            let tagText="";
+                            if(params.row.status==2){
+                                tagcolor="#ff3300";tagText="关闭";
+                            };
+                            if(params.row.status==1){
+                                tagcolor="#00cc66";tagText="开启";
+                            };
+                            return h('span', {
+                                style: {
+                                    color: tagcolor
+                                }
+                            }, tagText);
+
+                        }
                 },
                 {
                     title: '操作',
-                    key: 'action',
+                    key: 'status',
                     width: 150,
                     align: 'center',
                     render: (h, params) => {
@@ -114,41 +151,10 @@ export default {
                                     }
                                 }
                             }, '取消');
-                        let editButton=h('Button', {
-                                props: {
-                                    type: 'primary',
-                                    size: 'small'
-                                },
-                                style: {
-                                    marginRight: '5px'
-                                },
-                                on: {
-                                    click: () => {
-                                        this.doWhat("edit",params.index)
-                                    }
-                                }
-                            }, '修改');
-                        let deleteButton=h('Button', {
-                                props: {
-                                    type: 'error',
-                                    size: 'small'
-                                },
-                                on: {
-                                    click: () => {
-                                        this.doWhat("delete",params.index)
-                                    }
-                                }
-                            }, '删除');
-
-                        let dobutton=[viewButton];
-
-//                      if(this.checkPower("edit")){
-//                          dobutton.push(editButton);
-//                      };
-//                      if(this.checkPower("delete")){
-//                          dobutton.push(deleteButton);
-//                      };
-
+                        let dobutton=[];
+                        if(params.row.status=='1'){
+                        	 dobutton.push(viewButton);
+                        }
                         return h('div', dobutton);
                     }
                 }
@@ -218,8 +224,35 @@ export default {
             this.switching=false;
         },
         view (index) {
-            let viewURL=Config.api.news.news_list.review+this.tableData[index].id;
-            window.open(viewURL)
+            let postData=()=>({
+                    ssid:Cookies.get('ssid'),
+                    id:this.tableData[index].id,
+                    status:2
+                });
+            $.ajax({
+                url: Config.apiRootPath+Config.api.activity.white_list.cancel,
+                type: 'POST',
+                dataType: 'json',
+                data: postData()
+            })
+            .done((data)=>{
+                //userTypeList
+                if(!!data){
+                    if(data.code==0){
+                        this.$Message.success("取消成功!"); 
+                         this.doWhat("list"); 
+                    }
+                }else{
+                    Config.showError({vm:this,data:data,
+                        errorMsg:"请求失败"
+                    });
+                }
+            })
+            .fail((xhr,status,error)=>{
+                Config.showError({vm:this,
+                    errorMsg:"服务器通讯失败"
+                });
+            });
         },
         showEdit (index) {
             this.currentData=$.extend(true, {}, this.tableData[index]);
@@ -272,7 +305,7 @@ export default {
             if(this.searchData.keyword!="")postData.search=Util.trim(this.searchData.keyword);
             if(this.searchData.type!="")postData.type=this.searchData.type;
             $.ajax({
-                url: Config.apiRootPath+Config.api.news.news_list.list,
+                url: Config.apiRootPath+Config.api.activity.white_list.list,
                 type: 'POST',
                 dataType: 'json',
                 data: postData
@@ -347,11 +380,12 @@ export default {
     updated () {
     },
     mounted () {
+ 		 this.doWhat("list"); 	
     },
     deactivated () {
     },
     activated (){
-        this.doWhat("list");   
+    	 
     }
 };
 </script>

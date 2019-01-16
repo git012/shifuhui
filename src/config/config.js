@@ -376,6 +376,14 @@ let config = {
                 "review": "http://manage.shifuhui.net/article/?type=news&id="
             }
         },
+        //活动管理
+        "activity": {
+            "white_list": {
+                "list": "wkmanager/merchant/activityList", 
+                "add": "wkmanager/merchant/merchantActivity",
+                "cancel": "wkmanager/merchant/cancelActivity",
+            }
+        },
         //限额管理amountMax.listamountMax
         "amountMax":{
             "listamountMax":{

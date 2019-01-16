@@ -379,12 +379,12 @@
                             <Button type="default" style="width: 100px;" @click="doWhat('list')">返回列表</Button>
                         </FormItem>
                     </Form>
-                   	<template>
+                   	<!--<template>
                  		<div class="shopshow">
                  			<div id="qrcode" ref="qrcode"></div>
             				<div><br>点击右键选择图片另存为<br>即可下载二维码</div>
                  		</div>
-            		</template>
+            		</template>-->
                 </div>
                 <div class="ordler-list" v-if="doType=='list'">
                     <div class="search-box">
@@ -652,7 +652,19 @@ export default {
                     title: '商户类型',
                     align: 'center',
                     // width: "94",
-                    key: 'merchantTypeName'
+                    key: 'merchantTypeMerchant',
+                    render:(h,params) =>{
+                    	let metype=params.row.merchantTypeMerchant;
+                    	let tagText="";
+                    	if(metype=='1'){
+                    		tagText='线下商家(福惠商圈)';
+                    		}else if(metype=='2'){
+                    			tagText='线上商家(福惠商城)';
+                    		}else if(metype=='3'){
+                    			tagText='福惠积分商城';
+                    		}
+                    		return h('span',{},tagText);
+                    }
                 },
                 {
                     title: '福惠积分商品折扣差',
@@ -964,21 +976,21 @@ export default {
                     	{ required: true,validator: valideMerTypeM,trigger: 'change' }
                     ],
           			userPassword: [
-                    { required: true, message: '请输入登录密码', trigger: 'blur' },
+                    { required: false, message: '请输入登录密码', trigger: 'blur' },
                     { min: 6, message: '请至少输入6个字符', trigger: 'blur' },
                     { max: 32, message: '最多输入32个字符', trigger: 'blur' }
                 ],
                 userConfirmPassword: [
-                    { required: true, message: '请再次输入登录密码', trigger: 'blur' },
+                    { required: false, message: '请再次输入登录密码', trigger: 'blur' },
                     { validator: valideRePassword, trigger: 'blur' }
                 ],
                 merchantPasswd: [
-                    { required: true, message: '请输入提现密码', trigger: 'blur' },
+                    { required: false, message: '请输入提现密码', trigger: 'blur' },
                     { min: 6, message: '请至少输入6个字符', trigger: 'blur' },
                     { max: 32, message: '最多输入32个字符', trigger: 'blur' }
                 ],
                 merchantConfirmPasswd: [
-                    { required: true, message: '请再次输入提现密码', trigger: 'blur' },
+                    { required: false, message: '请再次输入提现密码', trigger: 'blur' },
                     { validator: valideCashPassword, trigger: 'blur' }
                 ],
                 merchantType: [
@@ -1403,7 +1415,7 @@ export default {
             this.$refs['currentData'].validate((valid) => {
                 if (valid) {
                     this.switching = true;
-                    var formDataSe = new FormData();
+                    let formDataSe = new FormData();
                     formDataSe.append("ssid", Cookies.get('ssid'));
                     formDataSe.append("merchantName", this.currentData.merchantName);
                     formDataSe.append("userName", this.currentData.userName);
@@ -1432,7 +1444,6 @@ export default {
                     formDataSe.append("userConfirmPassword",this.currentData.userConfirmPassword || "");
                     formDataSe.append("merchantPasswd", this.currentData.merchantPasswd || "");
                     formDataSe.append("merchantConfirmPasswd",this.currentData.merchantConfirmPasswd || "");
-//                  let requestUrl=Config.apiRootPath+Config.api.merchant.merchant_list.add;
                     if(this.currentData.face.file){
                         formDataSe.append("applicantIdCardImage", this.currentData.face.file);
                     };
@@ -1442,12 +1453,10 @@ export default {
                     if(this.currentData.face3.file){
                         formDataSe.append("merchantBusiness", this.currentData.face3.file);
                     };
-                    if(this.doType=="edit"){
                         formDataSe.append("merchantId", this.currentData.merchantId);
-                        requestUrl=Config.apiRootPath+Config.api.merchant.merchant_list.edit;
-                    };
+                        let requestUrl=Config.apiRootPath+Config.api.merchant.merchant_list.edit;
                     let _this=this;
-                    console.log(formDataSe);
+                  
                     //拉取用户类型
                     $.ajax({
                         url: requestUrl,
@@ -1491,7 +1500,7 @@ export default {
             this.$refs['currentData'].validate((valid) => {
                 if (valid) {
                     this.switching = true;
-                    var formDataSe = new FormData();
+                    let formDataSe = new FormData();
                     formDataSe.append("ssid", Cookies.get('ssid'));
                     formDataSe.append("merchantName", this.currentData.merchantName);
                     formDataSe.append("userName", this.currentData.userName);
