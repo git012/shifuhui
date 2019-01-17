@@ -87,7 +87,7 @@
                     </div>
                     <Table class="small_table" border :columns="columns" :loading="getLoading" :data="tableData"></Table>
                     <div class="page-box">
-                        <Page v-if="page.dataCount>10" :total="page.dataCount" show-total :page-size-opts="page.pageSizeOpts" :page-size="page.pageSize" @on-change="changePage" @on-page-size-change="changePageSize" show-elevator placement="top" show-sizer></Page>
+                        <Page v-if="page.dataCount>10" :total="page.dataCount" :current="page.pageNumber" show-total :page-size-opts="page.pageSizeOpts" :page-size="page.pageSize" @on-change="changePage" @on-page-size-change="changePageSize" show-elevator placement="top" show-sizer></Page>
                     </div>
                 </div>
             </div>
@@ -1164,8 +1164,9 @@ export default {
                         //userTypeList
                         if(!!data){
                             if(data.code==0){
-                                if(this.doType=="add")this.doWhat("list");
-                                this.$Message.success("修改成功！");
+                            	this.$Message.success("修改成功！");
+//                              if(this.doType=="add")
+                                this.doWhat("list");
                             }else{
                                 Config.showError({vm:this,data:data,
                                     errorMsg:""

@@ -354,6 +354,11 @@
                                 <Input v-model="currentData.merchantBDName"></Input>
                             </div>
                         </FormItem>
+                        <FormItem label="法人姓名：" prop="applicantName">
+                            <div style="width:200px;">
+                                <Input v-model="currentData.applicantName"></Input>
+                            </div>
+                        </FormItem>
                         <FormItem label="登录密码：" prop="userPassword">
                             <div style="width:204px;">
                                 <Input v-model="currentData.userPassword" ></Input>
@@ -1520,6 +1525,7 @@ export default {
                     formDataSe.append("merchantWktName",this.currentData.merchantWktName);
                     formDataSe.append("merchantWktMobile",this.currentData.merchantWktMobile);
                     formDataSe.append("merchantBDName",this.currentData.merchantBDName);
+                    formDataSe.append("applicantName",this.currentData.applicantName);
                     formDataSe.append("userPassword",this.currentData.userPassword || "");
                     formDataSe.append("userConfirmPassword",this.currentData.userConfirmPassword || "");
                     formDataSe.append("merchantPasswd", this.currentData.merchantPasswd || "");
