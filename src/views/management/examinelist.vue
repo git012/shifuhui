@@ -370,8 +370,13 @@
                     },
                     {
                         title: '创建时间',
-                        // width: "12%",
+                        align: 'center',
                         key: 'date_added'
+                    },
+                    {
+                        title: '录入人',
+                        align: 'center',
+                        key: 'data_entry_clerk'
                     },
                     {
                         title: '优惠',
