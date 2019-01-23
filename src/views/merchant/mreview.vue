@@ -71,13 +71,13 @@
                         <FormItem label="商户类型：" prop="merchantTypeMerchant">
                             <RadioGroup v-model="currentData.merchantTypeMerchant" @on-change="switchoverType">
                                 <Radio :label="1">
-                                    <span>线下商家(悟空商圈)</span>
+                                    <span>线下商家(福惠商圈)</span>
                                 </Radio>
                                 <Radio :label="2">
-                                    <span>线上商家(悟空商城)</span>
+                                    <span>线上商家(福惠商城)</span>
                                 </Radio>
                                 <Radio :label="3">
-                                    <span>白积分商城</span>
+                                    <span>福惠积分商城</span>
                                 </Radio>
                             </RadioGroup>
                         </FormItem>
@@ -249,14 +249,14 @@
             <Modal v-model="updateStatus" :closable='false' :mask-closable=false :width="500">
                 <h3 slot="header" style="color:#2D8CF0">商户审核</h3>
                 <Form ref="updateStatusForm" :model="updateStatusForm" :label-width="180" label-position="right" :rules="currentDataValidate">
-                    <FormItem label="选择福惠积分商品折扣差：" prop="merchantRatior">
+                    <FormItem label="选择福惠积分商品折扣差：" prop="merchantRatior" v-if="whitegoods">
                             <div style="width:300px;">
                                 <Select style="width:200px" v-model="updateStatusForm.merchantRatior">
                                     <Option v-for="item in zkWhiteData" :value="item.value" :key="item.value">{{ item.name }}</Option>
                                 </Select>
                             </div>
                     </FormItem>                    
-                    <FormItem label="选择商户折扣差：" prop="merchantTyper">
+                    <FormItem label="选择商户折扣差：" prop="merchantTyper" v-if="whitegoodsN">
                             <div style="width:300px;">
                                 <Select style="width:200px" v-model="updateStatusForm.merchantTyper">
                                     <Option v-for="item in zkData" :value="item.value" :key="item.value">{{ item.name }}</Option>
@@ -435,7 +435,19 @@ export default {
                     title: '商户类型',
                     align: 'center',
                     // width: "94",
-                    key: 'merchantTypeName'
+                    key: 'merchantTypeMerchant',
+                    render:(h,params) =>{
+                    	let metype=params.row.merchantTypeMerchant;
+                    	let tagText="";
+                    	if(metype=='1'){
+                    		tagText='线下商家(福惠商圈)';
+                    		}else if(metype=='2'){
+                    			tagText='线上商家(福惠商城)';
+                    		}else if(metype=='3'){
+                    			tagText='福惠积分商城';
+                    		}
+                    		return h('span',{},tagText);
+                    }
                 },
                 // {
                 //     title: '商户类型',
@@ -452,12 +464,12 @@ export default {
                 //         return h('span', {}, tagText);
                 //     }
                 // },
-                {
-                    title: '订单',
-                    // width: "5%",
-                    align: 'center',
-                    key: 'orderSuccessCount'
-                },
+//              {
+//                  title: '订单',
+//                  // width: "5%",
+//                  align: 'center',
+//                  key: 'orderSuccessCount'
+//              },
                 // {
                 //     title: '余额',
                 //     align: 'right',
@@ -551,6 +563,8 @@ export default {
             switching:false,
             showTypeOn:false,
             showTypeOff:false,
+            whitegoods:false,
+            whitegoodsN:false,
             tableData: [],
             merchantTypeData: [],
             zkData:[{'value':'0.04','name':'4%'},{'value':'0.08','name':'8%'},{'value':'0.12','name':'12%'},{'value':'0.16','name':'16%'}],
@@ -1099,11 +1113,18 @@ export default {
         changeStatus (index) {
           this.updateStatusForm=$.extend(true, {}, this.tableData[index]);
           this.updateStatusForm.tableIndex=index;
-            this.updateStatus = true;
+          this.updateStatus = true;
+          if(this.updateStatusForm.merchantTypeMerchant =='3'){
+          	this.whitegoods=true;
+          }else{
+          	this.whitegoodsN=true;
+          }
         },
         cancelUpdateStatus () {
             this.updateStatusForm={};
             this.updateStatus = false;
+            this.whitegoods=false;
+            this.whitegoodsN=false;
         },
         saveUpdateStatus () {
         	this.$refs['updateStatusForm'].validate((valid) => {

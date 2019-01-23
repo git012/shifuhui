@@ -263,20 +263,6 @@
                                 </Select>
                             </div>
                         </FormItem>
-						<FormItem label="选择福惠积分商品折扣差：" prop="merchantRatior">
-                            <div style="width:300px;">
-                                <Select style="width:200px" v-model="currentData.merchantRatior">
-                                    <Option v-for="item in zkWhiteData" :value="item.value" :key="item.value">{{ item.name }}</Option>
-                                </Select>
-                            </div>
-                    	</FormItem>                    
-                    	<FormItem label="选择商户折扣差：" prop="merchantTyper">
-                            <div style="width:300px;">
-                                <Select style="width:200px" v-model="currentData.merchantTyper">
-                                    <Option v-for="item in zkData" :value="item.value" :key="item.value">{{ item.name }}</Option>
-                                </Select>
-                            </div>
-                    	</FormItem>
                         <FormItem label="经营地址：" prop="merchantAddress">
                             <div style="width:200px;">
                                 <Input v-model="currentData.merchantAddress"></Input>
@@ -319,6 +305,20 @@
                                 </Select>
                             </div>
                         </FormItem>
+						<FormItem label="选择福惠积分商品折扣差：" prop="merchantRatior" v-if="whitegoods">
+                            <div style="width:300px;">
+                                <Select style="width:200px" v-model="currentData.merchantRatior">
+                                    <Option v-for="item in zkWhiteData" :value="item.value" :key="item.value">{{ item.name }}</Option>
+                                </Select>
+                            </div>
+                    	</FormItem>                    
+                    	<FormItem label="选择商户折扣差：" prop="merchantTyper" v-if="whitegoodsN">
+                            <div style="width:300px;">
+                                <Select style="width:200px" v-model="currentData.merchantTyper">
+                                    <Option v-for="item in zkData" :value="item.value" :key="item.value">{{ item.name }}</Option>
+                                </Select>
+                            </div>
+                    	</FormItem>
                         <FormItem label="经营业务：" prop="merchantBusinessM">
                             <div style="width:200px;">
                                 <Input v-model="currentData.merchantBusinessM"></Input>
@@ -736,6 +736,8 @@ export default {
             switching:false,
             showTypeOn:false,
             showTypeOff:false,
+            whitegoods:false,
+            whitegoodsN:false,
             imagesReady:false,
             tableData: [],
             merchantTypeData: [],
@@ -1161,6 +1163,13 @@ export default {
             	this.showTypeOn=true;
             	this.showTypeOff=false;
             }
+          if(this.currentData.merchantTypeMerchant=='3'){
+          	this.whitegoods=true;
+          	this.whitegoodsN=false;
+          }else{
+          	this.whitegoodsN=true;
+          	this.whitegoods=false;
+          }
         },
         //list
         resetSearch () {

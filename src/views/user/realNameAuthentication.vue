@@ -183,7 +183,19 @@ export default {
                  {
                     title: '性别',
                     align: 'center',
-                    key: 'sex'
+                    key: 'sex',
+                    render: (h, params) => {
+                        let tagText="";
+                        if(params.row.sex==1){
+                            tagText="男";
+                        };
+                        if(params.row.sex==2){
+                            tagText="女";
+                        };
+                        return h('span',{}, tagText);
+
+                    }
+                    
                 },
                 {
                     title: '身份证号',

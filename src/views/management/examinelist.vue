@@ -183,18 +183,9 @@
                         </Alert>
                         <Row style="margin-top: 10px" align="bottom" type="flex">
                             <Col span="4" style="font-size: 16px;color: black">配送:</Col>
-                            <Col span="20" style="font-size: 14px" v-if="thisIndex.carriage_type==1">
-                                包邮
-
-                            </Col>
-                            <Col span="20" style="font-size: 14px" v-if="thisIndex.carriage_type==2">
-                                全国统一邮费
-
-                            </Col>
-                            <Col span="20" style="font-size: 14px" v-if="thisIndex.carriage_type==3">
-                                新疆、西藏用户需附加邮费
-
-                            </Col>
+                            <Col span="20" style="font-size: 14px" v-if="thisIndex.carriage_type==1">包邮</Col>
+                            <Col span="20" style="font-size: 14px" v-if="thisIndex.carriage_type==2">全国统一邮费</Col>
+                            <Col span="20" style="font-size: 14px" v-if="thisIndex.carriage_type==3">新疆、西藏用户需附加邮费({{thisIndex.carriage}}元)</Col>
 
                         </Row>
                         <Row style="margin-top: 10px" align="bottom" type="flex">
@@ -226,19 +217,15 @@
                             <Col span="4" style="font-size: 16px;color: black">商品分类 :</Col>
                             <Col span="20" style="font-size: 14px" v-if="thisIndex.category&&thisIndex.category.length>1">
                                 {{thisIndex.category[0].category}}/{{thisIndex.category[1].parent_category}}
-
-
-
                             </Col>
                             <Col span="20" style="font-size: 14px" v-if="thisIndex.category&&thisIndex.category.length<=1">
                                 <!--{{thisIndex.category}}-->
                                 {{thisIndex.category[0].parent_category}}
-
-
-
                             </Col>
-
-
+                        </Row>
+                        <Row style="margin-top: 10px" align="top" type="flex">
+                            <Col span="4" style="font-size: 16px;color: black">商品来源 :</Col>
+                            <Col span="20" style="font-size: 14px">{{goodsSource[thisIndex.source]}}</Col>
                         </Row>
                         <Row style="margin-top: 10px" align="top" type="flex">
                             <Col span="4" style="font-size: 16px;color: black">审核状态 :</Col>
@@ -561,6 +548,7 @@
                     district: []
                 },
                 shipStatus: ['待审核', '审核成功', '审核失败'],
+                goodsSource: ['未知', '手动添加', '京东', '淘宝', '企叮咚', '蓉城易购 '],
                 recordStatus2:[{"value":"2","name":"普通商品"},{"value":"1","name":"积分商品"}],
                 Totals: {
                     wait: '0.00',
