@@ -25,22 +25,37 @@
         float: left;
         height: auto;
         /*background: #00c261;*/
-        border: 1px solid grey;
     }
     .left .bigImg{
-
+    	border: 1px solid #d3d3d3;
     }
     .left ul{
         width: 100%;
-        height: 100px;
-        border-top: 1px solid grey;
-        margin-top:0;
+        /*height: 100px;*/
+        margin-top:5px;
+        border-bottom: none;
     }
     .left ul li{
-        width: 100px;
-        height: 100px;
         float: left;
-
+		box-sizing: border-box;
+    	padding: 5px;
+    	width: 48%;
+    	height: 100px;
+    	margin: 1px;
+    border: 1px solid #d3d3d3;
+    }
+    .left ul li img{
+    	height: 85px;
+    	width: 125px;
+    	vertical-align: middle;
+    }
+    .left ul span{
+    	display: block;
+    	width: 100%;
+    	text-align: center;
+    	font-size: 16px;
+    	font-weight: bold;
+    	padding: 5px 0;
     }
     .right{
         width: 65%;
@@ -59,6 +74,12 @@
         display: inline-block;
         margin-right: 30px;
         font-size: 14px;
+    }
+    .clear::after{
+    		content: "";
+            clear: both;
+            display: block;
+            overflow: hidden;
     }
 </style>
 
@@ -151,12 +172,17 @@
                           <!--{{thisIndex.image}}-->
                             <img :src="thisIndex.image" alt="" style="width: 100%;height: auto;margin: 0;padding: 0">
                         </div>
-                        <ul>
-                            <li v-for="site in thisIndex.images" style="list-style: none">
-
+                        <ul class="clear">
+                        	<span>商品轮播图</span>
+                            <li v-for="site in thisIndex.banner" style="list-style: none">
                                 <img :src="site.image" alt="" width="100" height="100" @click="imgView">
                             </li>
-
+                        </ul>
+                        <ul class="clear">
+                        	<span>商品详情图</span>
+                            <li v-for="site in thisIndex.images" style="list-style: none">
+                                <img :src="site.image" alt="" width="100" height="100" @click="imgView">
+                            </li>
                         </ul>
                     </div>
                     <div class="right">
